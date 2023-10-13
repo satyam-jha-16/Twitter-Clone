@@ -13,8 +13,8 @@ document.addEventListener("click", function(event){
         else if(event.target.dataset.retweet){
             handleRetweet(event.target.dataset.retweet)
         }
-        else if(event.target.dataset.reply){
-            handleReplyClick(event.target.dataset.reply)
+        else if(event.target.dataset.replies){
+            handleReplyClick(event.target.dataset.replies)
         }
 
 })
