@@ -1,12 +1,10 @@
 import { tweetsData } from "./data.js";
-const tweetInput = document.getElementById("tweet-input")
-const tweetBtn = document.getElementById("tweet-btn") 
+import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
+// console.log(uuidv4());
 
-tweetBtn.addEventListener("click", function(){
-    console.log(tweetInput.value)
 
-})
 document.addEventListener("click", function(event){
+
         if(event.target.dataset.like){
             handleLikeClick(event.target.dataset.like)
         }
@@ -16,6 +14,10 @@ document.addEventListener("click", function(event){
         else if(event.target.dataset.replies){
             handleReplyClick(event.target.dataset.replies)
         }
+        else if(event.target.id === 'tweet-btn'){
+            handleTweetBtn()
+        }
+        
 
 })
 
@@ -52,6 +54,27 @@ function handleRetweet(tweetId){
 
 function handleReplyClick(tweetId){
     document.getElementById(`replies-${tweetId}`).classList.toggle("hidden")
+}
+
+function handleTweetBtn(){
+    const tweetInput = document.getElementById("tweet-input")
+    // console.log(tweetInput.value)
+    let newTwt = {
+        handle: `@satyam`,
+        profilePic: `images/scrimbalogo.png`,
+        likes: 0,
+        retweets: 0,
+        tweetText: tweetInput.value ,
+        replies: [],
+        isLiked: false,
+        isRetweeted: false,
+        uuid: uuidv4(),
+    }
+    if(newTwt.tweetText){
+        tweetsData.unshift(newTwt)
+    }
+    render()
+    tweetInput.value = ''
 }
 
 function getFeedHtml(){
